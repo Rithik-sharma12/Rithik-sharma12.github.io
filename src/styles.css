@@ -1,0 +1,287 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/inter/900.css";
+@import "@fontsource/fira-code/400.css";
+@import "@fontsource/fira-code/500.css";
+@import "@fontsource/archivo-black/400.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Paper-and-red palette (token names kept; meaning swapped)
+   * navy        -> warm cream paper (page background)
+   * navy-deep   -> slightly darker cream (card surface on paper)
+   * cream       -> dark ink (text on cream surfaces)
+   * ink         -> dark ink (alias)
+   * steel       -> red accent (blobs, cards, buttons)
+   * steel-soft  -> deeper red (hover)
+   * steel-deep  -> darkest red
+   * paper       -> off-white text for red surfaces
+   */
+  --color-navy: #f1e6d2;
+  --color-navy-deep: #e8dbc1;
+  --color-blood: #f5ecd9;
+  --color-blood-deep: #ddcca8;
+  --color-cream: #1a1410;
+  --color-ink: #0d0907;
+  --color-steel: #c8202a;
+  --color-steel-soft: #a4151e;
+  --color-steel-deep: #7a0f17;
+  --color-paper: #fbf5e7;
+
+  --font-sans: "Inter", "Segoe UI", "Roboto", sans-serif;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Archivo Black", "Inter", sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  --background: #f1e6d2;
+  --foreground: #1a1410;
+  --card: #fbf5e7;
+  --card-foreground: #1a1410;
+  --popover: #fbf5e7;
+  --popover-foreground: #1a1410;
+  --primary: #c8202a;
+  --primary-foreground: #fbf5e7;
+  --secondary: #1a1410;
+  --secondary-foreground: #fbf5e7;
+  --muted: #e8dbc1;
+  --muted-foreground: #5a4a3a;
+  --accent: #c8202a;
+  --accent-foreground: #fbf5e7;
+  --destructive: #c8202a;
+  --destructive-foreground: #fbf5e7;
+  --border: rgba(26, 20, 16, 0.15);
+  --input: rgba(26, 20, 16, 0.18);
+  --ring: #c8202a;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 15% 10%, rgba(200, 32, 42, 0.06), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 90% 80%, rgba(200, 32, 42, 0.05), transparent 60%);
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  section {
+    scroll-margin-top: 96px;
+  }
+
+  ::selection {
+    background: var(--color-steel);
+    color: var(--color-paper);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-steel);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility font-mono-tech {
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@utility animate-ticker {
+  animation: ticker-scroll 28s linear infinite;
+}
+
+/* Custom red-team pen cursor — desktop pointer devices only */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("/cursors/pen.svg") 4 2, auto;
+  }
+  a, button, [role="button"], summary, label[for], select,
+  .cursor-pointer, [data-cursor="mark"] {
+    cursor: url("/cursors/pen-mark.svg") 4 2, pointer;
+  }
+  input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  textarea, [contenteditable="true"], [contenteditable=""] {
+    cursor: text;
+  }
+  :disabled, [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+/* Hand-drawn blob shapes for red cards */
+@utility blob-card {
+  border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%;
+}
+
+@utility blob-card-alt {
+  border-radius: 58% 42% 48% 52% / 40% 55% 45% 60%;
+}
+
+@keyframes status-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 80, 40, 0.7); }
+  100% { box-shadow: 0 0 0 8px rgba(255, 80, 40, 0); }
+}
+
+@keyframes hex-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes hex-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes otw-shine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Long-form blog post typography */
+.prose-blog {
+  color: var(--color-cream);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-blog > * + * { margin-top: 1.25em; }
+.prose-blog h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-top: 2.25em;
+  color: var(--color-cream);
+}
+.prose-blog h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  margin-top: 2em;
+  color: var(--color-cream);
+}
+.prose-blog p { color: color-mix(in srgb, var(--color-cream) 88%, transparent); }
+.prose-blog strong { color: var(--color-cream); font-weight: 700; }
+.prose-blog a {
+  color: var(--color-steel);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.prose-blog a:hover { color: var(--color-steel-soft); }
+.prose-blog ul, .prose-blog ol { padding-left: 1.4em; }
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li { margin: 0.4em 0; }
+.prose-blog li::marker { color: var(--color-steel); }
+.prose-blog blockquote {
+  border-left: 3px solid var(--color-steel);
+  padding: 0.25em 1em;
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-cream) 80%, transparent);
+  background: color-mix(in srgb, var(--color-navy-deep) 60%, transparent);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose-blog code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--color-cream) 12%, transparent);
+  color: var(--color-steel-soft);
+}
+.prose-blog pre {
+  font-family: var(--font-mono);
+  padding: 1em 1.15em;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  background: #0d1117;
+  border: 1px solid color-mix(in srgb, var(--color-cream) 15%, transparent);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.prose-blog pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+.prose-blog hr {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-cream) 15%, transparent);
+  margin: 2.5em 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
